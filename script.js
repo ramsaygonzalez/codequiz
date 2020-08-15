@@ -1,30 +1,48 @@
 var welcomeEl = document.querySelector("#welcome-message");
 var secondsDisplayEl = document.querySelector("#timer");
 var startBtn = document.querySelector("#start-quiz");
-var quesitionsEl = document.querySelector("#questions")
+var questionsEl = document.querySelector("#questions")
+var questionEl = document.querySelector("#question")
+var ans1 = document.querySelector("#a")
+var ans2 = document.querySelector("#b")
+var ans3 = document.querySelector("#c")
+var ans4 = document.querySelector("#d")
 var quizEndEl = document.querySelector("#end-quiz")
-var h3El = document.createElement("h3");
-var listEl = document.createElement("ul");
-var li1 = document.createElement("li");
-var li2 = document.createElement("li");
-var li3 = document.createElement("li");
-var li4 = document.createElement("li");
-var q1El = document.createElement("button");
-var q2El = document.createElement("button");
-var q3El = document.createElement("button");
-var q4El = document.createElement("button");
-
 
 var sec = 80;
 var currentQuestion = 0;
 
-
 startBtn.addEventListener('click', function () {
     event.preventDefault();
-    startTimer();
     welcomeEl.style.display = "none";
     loadQuestion()
+    startTimer()
 });
+
+
+function answerSelect(val) {
+
+    if (val !== questions[currentQuestion].correctAnswer) {
+        console.log(val)
+        console.log(questions[currentQuestion].correctAnswer)
+        sec -= 10;
+
+        if (sec < 0) {
+            sec = 0; S
+        }
+
+        secondsDisplayEl.textContent = sec;
+
+        console.log("wrong")
+        // need to add alert to user
+    } else {
+        console.log(val)
+        console.log(questions[currentQuestion].correctAnswer)
+        console.log("correct")
+        // need to add alert to user
+    }
+};
+
 
 function startTimer() {
     var timer = setInterval(function () {
@@ -35,38 +53,28 @@ function startTimer() {
         }
     }, 1000);
 }
-// // document.getElementById('incorrect').addEventListener('click', function () {
-// //     sec -= 5;
-// //     document.getElementById('timer').innerHTML = sec;
-// });
+
 
 function loadQuestion() {
+    questionsEl.style.display = "block";
     var question = questions[currentQuestion]
+    var correctAnswer = question.correctAnswer
+
     console.log(question)
-    h3El.textContent = question.question
-    q1El.textContent = "a. " + question.answers.a
-    q2El.textContent = "b. " + question.answers.b
-    q3El.textContent = "c. " + question.answers.c
-    q4El.textContent = "d. " + question.answers.d
+    console.log(correctAnswer)
 
-    li1.appendChild(q1El)
-    li2.appendChild(q2El)
-    li3.appendChild(q3El)
-    li4.appendChild(q4El)
-    listEl.appendChild(li1)
-    listEl.appendChild(li2)
-    listEl.appendChild(li3)
-    listEl.appendChild(li4)
-    quesitionsEl.appendChild(h3El)
-    quesitionsEl.appendChild(listEl)
+    questionEl.textContent = question.question
+    ans1.textContent = "a. " + question.answers.a
+    ans1.setAttribute("value", question.answers.a)
 
-    // quesitionsEl.appendChild(h3El)
-    // quesitionsEl.appendChild(h3El)
-    // quesitionsEl.appendChild(q1El)
-    // quesitionsEl.appendChild(q2El)
-    // quesitionsEl.appendChild(q3El)
-    // quesitionsEl.appendChild(q4El)
-    //h3 -question
-    //li - choices buttons
+    ans2.textContent = "b. " + question.answers.b
+    ans2.setAttribute("value", question.answers.b)
+
+    ans3.textContent = "c. " + question.answers.c
+    ans3.setAttribute("value", question.answers.c)
+
+    ans4.textContent = "d. " + question.answers.d
+    ans4.setAttribute("value", question.answers.d)
 
 }
+

@@ -1,3 +1,6 @@
-ul {
-    list-style-type: none;
+.answers{
+    margin-bottom: 5%
+}
+#questions{
+    display: none;
 }
