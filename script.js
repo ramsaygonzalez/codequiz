@@ -9,6 +9,7 @@ var ans2 = document.querySelector("#b")
 var ans3 = document.querySelector("#c")
 var ans4 = document.querySelector("#d")
 var quizEndEl = document.querySelector("#end-quiz")
+var saveScoreEl = document.querySelector("#save-score")
 var scoreEl = document.querySelector("#score")
 var initialsEl = document.querySelector("#initials")
 var scoresListEl = document.querySelector("#scores-list")
@@ -17,10 +18,6 @@ var sec = 120;
 var elapsedTime;
 
 var currentQuestion = 0;
-
-var storedHighScores = [];
-
-renderScores()
 
 startBtn.addEventListener('click', function () {
     event.preventDefault();
@@ -109,43 +106,24 @@ function loadQuestion() {
 
 }
 
-// When form is submitted...
-quizEndEl.addEventListener("submit", function (event) {
+var highScores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+
+saveScoreEl.addEventListener("click", function (event) {
     event.preventDefault();
 
-    var highScores = JSON.parse(window.localStorage.getItem("highscores")) || [];
+    var initialsText = initialsEl.value.trim();
+
+    if (initialsText === "") {
+        return;
+    }
 
     var score = {
-        score: elapsedTime,
-        initials: initialsEl.value.trim()
+        initials: initialsText,
+        score: elapsedTime
     };
 
     highScores.push(score);
-    window.localStorage.setItem("highscores", JSON.stringify(highScores));
-
-    // Return to start page
-    renderScores()
+    localStorage.setItem("highscores", JSON.stringify(highScores));
     window.location.href = "highscores.html"
+
 });
-
-function renderScores() {
-
-    var storedScores = JSON.parse(localStorage.getItem("highscores"));
-
-    storedHighScores = storedScores
-
-    // Render a new li for each todo
-    for (var i = 0; i < storedHighScores.length; i++) {
-        var score = "Initials: " + storedHighScores[i].initials +  " - " + "Score: " + storedHighScores[i].score;
-
-        var li = document.createElement("li");
-        li.textContent = score;
-        li.setAttribute("data-index", i);
-
-        scoresListEl.appendChild(li);
-    }
-}
-
-function clearHighScores(){
-    
-}
