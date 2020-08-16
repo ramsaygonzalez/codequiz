@@ -11,13 +11,16 @@ var ans4 = document.querySelector("#d")
 var quizEndEl = document.querySelector("#end-quiz")
 var scoreEl = document.querySelector("#score")
 var initialsEl = document.querySelector("#initials")
+var scoresListEl = document.querySelector("#scores-list")
 
 var sec = 120;
 var elapsedTime;
 
 var currentQuestion = 0;
 
-// var highScores = [];
+var storedHighScores = [];
+
+renderScores()
 
 startBtn.addEventListener('click', function () {
     event.preventDefault();
@@ -121,5 +124,28 @@ quizEndEl.addEventListener("submit", function (event) {
     window.localStorage.setItem("highscores", JSON.stringify(highScores));
 
     // Return to start page
-    window.location.href = "quiz.html"
+    renderScores()
+    window.location.href = "highscores.html"
 });
+
+function renderScores() {
+
+    var storedScores = JSON.parse(localStorage.getItem("highscores"));
+
+    storedHighScores = storedScores
+
+    // Render a new li for each todo
+    for (var i = 0; i < storedHighScores.length; i++) {
+        var score = "Initials: " + storedHighScores[i].initials +  " - " + "Score: " + storedHighScores[i].score;
+
+        var li = document.createElement("li");
+        li.textContent = score;
+        li.setAttribute("data-index", i);
+
+        scoresListEl.appendChild(li);
+    }
+}
+
+function clearHighScores(){
+    
+}
