@@ -39,7 +39,7 @@ var questions = [
             c: '3',
             d: '4'
         },
-        correctAnswer: 'a'
+        correctAnswer: 'd'
     },
     {
         question: "What's the largest mammal in the world?",
