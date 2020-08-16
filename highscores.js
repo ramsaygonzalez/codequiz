@@ -27,5 +27,5 @@ clearEl.addEventListener('click', function () {
 
 goBackEl.addEventListener('click', function () {
     event.preventDefault();
-    window.location.href = "quiz.html"
+    window.location.href = "index.html"
 });
