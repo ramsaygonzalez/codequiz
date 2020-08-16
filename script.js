@@ -12,7 +12,8 @@ var quizEndEl = document.querySelector("#end-quiz")
 var saveScoreEl = document.querySelector("#save-score")
 var scoreEl = document.querySelector("#score")
 var initialsEl = document.querySelector("#initials")
-var scoresListEl = document.querySelector("#scores-list")
+var alertEl = document.querySelector("#alert-element")
+
 
 var sec = 120;
 var elapsedTime;
@@ -25,7 +26,6 @@ startBtn.addEventListener('click', function () {
     startTimer()
     loadQuestion()
 });
-
 
 function answerSelect(val) {
     if (currentQuestion < 4) {
@@ -44,17 +44,25 @@ function answerSelect(val) {
             secondsDisplayEl.textContent = sec;
             console.log("wrong")
             currentQuestion++;
+            alertEl.setAttribute("class", "alert alert-danger")
+            alertEl.textContent = "Incorrect Answer! - 10 Secs"
+            alertEl.style.display = "block";
             loadQuestion()
 
-            // need to add alert to user
+
+
         } else {
             console.log(val)
             console.log(questions[currentQuestion].correctAnswer)
             console.log("correct")
             currentQuestion++;
+            alertEl.setAttribute("class", "alert alert-success")
+            alertEl.textContent = "Correct Answer!"
+            alertEl.style.display = "block";
             loadQuestion()
 
-            // need to add alert to user
+
+
         }
     } else {
         console.log("test over")
@@ -62,6 +70,8 @@ function answerSelect(val) {
         secondsDisplayEl.style.display = "none"
         questionsEl.style.display = "none";
         scoreEl.textContent = "Final Score: " + elapsedTime;
+        alertEl.style.display = "block";
+        alertEl.style.display = "none";
         quizEndEl.style.display = "block";
         console.log(elapsedTime)
     }
@@ -103,6 +113,7 @@ function loadQuestion() {
 
     ans4.textContent = "d. " + question.answers.d
     ans4.setAttribute("value", question.answers.d)
+
 
 }
 
